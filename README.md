@@ -57,12 +57,14 @@ cp config.example.json config.json
 
 Edit the configuration file with your camera details, tokens, and GPIO pins.
 
-fingerprint -> Just Some random 16byte long string
-token -> Take from Prusa Connect
-path -> Camera ID for fswebcam
-name -> Display Name in Prusa Connect
-resolution -> Res for fsswebcam
-overlay_temp -> on/off for Temp Overlay
+| parameter | description |
+| --------- | ---------- |
+| fingerprint | Just some random min 16byte long string |
+| token | Take from Prusa Connect |
+| path | Camera ID for fswebcam |
+| name | Display Name for Prusa Connect |
+| height/width | Resolution for fsswebcam |
+| overlay_temp | on/off switch for temperature overlay |
 
 ## Prusa Connect
 Simply add a new "Other Cam" and copy the Token to you config.
