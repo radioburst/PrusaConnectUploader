@@ -1,0 +1,16 @@
+{
+    "interval_seconds": 20,
+    "led_pin": 26,
+    "button_pin": 2,
+    "cameras": [
+        {
+            "name": "Top Cam",
+            "fingerprint": "Enclosure_Camera_Top_MK35",
+            "token": "???",
+            "path": "/dev/v4l/by-id/usb-HD_USB_Camera_HD_USB_Camera_2020032501-video-index0",
+            "width": 1280,
+            "height": 720,
+            "overlay_temp": true
+        }
+    ]
+}

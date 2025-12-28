@@ -1,0 +1,18 @@
+[Unit]
+Description=Prusa Connect Cam Uploader
+# Wait for the network to be up before starting
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+# Replace /home/pi/prusa_uploader.py with the actual path to your script
+ExecStart=/usr/bin/python3 -u /home/pi/prusa_uploader.py
+WorkingDirectory=/home/pi
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=10
+User=pi
+
+[Install]
+WantedBy=multi-user.target
