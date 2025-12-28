@@ -1,5 +1,5 @@
 # PrusaConnectUploader
-Uploads Snapshoots to Prusa Connect and supports Enclosure Temp. 
+Uploads Snapshots to Prusa Connect and supports Enclosure Temp. 
 This is a solution for everyone who switched from OctoPrint to Prusa Connect.
 With the MK3.5 Upgrade I started to use Prusa Connect but I couldn't show my Enclosure Temp any more and I needed to upload Snapshots from my two Webcams to PrusaConnect somehow so this is what I came up with.
 
@@ -7,7 +7,7 @@ With the MK3.5 Upgrade I started to use Prusa Connect but I couldn't show my Enc
 This Docu is mainly made for my future self. But please feel free to add and improve!
 
 ## How it works
-Basically I use fswebcam to get snapshoots from my usb cams and since there is sadly no Enclosure Temp Endpoint in Prusa Connect I simply add and Overlay in the Snapshots. Furthermore I added a "Flashlight" function to it. The Script turns on the LED lights before it takes the snapshots and than turns it off again. There is also a Button connected to the Pi which can overwrite this so it stays on.
+Basically I use fswebcam to get snapshots from my usb cams and since there is sadly no Enclosure Temp Endpoint in Prusa Connect I simply add and Overlay in the Snapshots. Furthermore I added a "Flashlight" function to it. The Script turns on the LED lights before it takes the snapshots and than turns it off again. There is also a Button connected to the Pi which can overwrite this so it stays on.
 
 ## Dependencies
 * fswebcam
@@ -15,27 +15,55 @@ Basically I use fswebcam to get snapshoots from my usb cams and since there is s
 * python3-rpi.gpio
 * python3-pil
 
-> sudo apt install python3-requests python3-rpi.gpio python3-pil fswebcam
-</br>
+```bash
+sudo apt install python3-requests python3-rpi.gpio python3-pil fswebcam
+```
 
 or pip
-</br>
 
-> pip3 install requests RPi.GPIO Pillow
+```bash
+pip3 install requests RPi.GPIO Pillow
+```
 
 ## Systemd
 I added a simple systemd service to start and stop the service
 Just add the prusa-uploader.service. file to your systemd config.
 
-> systemctl enabled prusa-uploader.service
-</br>
-> systemctl start/stop prusa-uploader.service
+```bash
+sudo cp prusa-uploader.service /etc/systemd/system/prusa-uploader.service
+sudo systemctl daemon-reload
+
+sudo systemctl enable prusa-uploader.service
+sudo systemctl start/stop prusa-uploader.service
+```
 
 ## Get Camera Ids
-> ls /dev/v4l/by-id/
+```bash
+ls /dev/v4l/by-id/
+```
 
 ## Test Cam
-> fswebcam -d /dev/v4l/by-id/usb-Logitech_Webcam_C270_ABC123-video-index0 image.jpg
+```bash
+fswebcam -d /dev/v4l/by-id/usb-Logitech_Webcam_C270_ABC123-video-index0 image.jpg
+```
+
+## Configuration
+Copy `config.example.json` to `config.json` and edit with your settings:
+```bash
+cp config.example.json config.json
+```
+
+Edit the configuration file with your camera details, tokens, and GPIO pins.
+
+fingerprint -> Just Some random 16byte long string
+token -> Take from Prusa Connect
+path -> Camera ID for fswebcam
+name -> Display Name in Prusa Connect
+resolution -> Res for fsswebcam
+overlay_temp -> on/off for Temp Overlay
+
+## Prusa Connect
+Simply add a new "Other Cam" and copy the Token to you config.
 
 ## Circuit Schematic
 
@@ -91,10 +119,3 @@ GPIO 26 ----[1kΩ]---------- G (MOSFET - N-Channel)
 1. GPIO 26 HIGH → MOSFET ON → LED lights up
 2. Button press → GPIO 2 pulled LOW (falling edge) → Toggle override mode
 
-## Configuration
-Copy `config.example.json` to `config.json` and edit with your settings:
-```bash
-cp config.example.json config.json
-```
-
-Edit the configuration file with your camera details, tokens, and GPIO pins.

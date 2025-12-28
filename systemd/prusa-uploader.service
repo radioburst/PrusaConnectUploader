@@ -5,8 +5,7 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
-# Replace /home/pi/prusa_uploader.py with the actual path to your script
-ExecStart=/usr/bin/python3 -u /home/pi/prusa_uploader.py
+ExecStart=/usr/bin/python3 -u /home/pi/PrusaConnectUploader/cam_uploader.py
 WorkingDirectory=/home/pi
 StandardOutput=inherit
 StandardError=inherit
