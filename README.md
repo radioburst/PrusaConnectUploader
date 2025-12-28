@@ -3,6 +3,8 @@ Uploads Snapshots to Prusa Connect and supports Enclosure Temp.
 This is a solution for everyone who switched from OctoPrint to Prusa Connect.
 With the MK3.5 Upgrade I started to use Prusa Connect but I couldn't show my Enclosure Temp any more and I needed to upload Snapshots from my two Webcams to PrusaConnect somehow so this is what I came up with.
 
+![Example Pic](images/example.png)
+
 ## Disclaimer
 This Docu is mainly made for my future self. But please feel free to add and improve!
 
