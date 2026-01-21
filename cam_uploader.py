@@ -96,15 +96,22 @@ def is_printer_online(printer):
         print(f"[{printer['name']}] Error checking printer status: {e}")
         return False
 
-def get_real_temp():
+def get_real_temp(sensor_path=None):
+    """Read temperature from a DS18B20 sensor"""
     try:
-        device_file = glob.glob('/sys/bus/w1/devices/28*/w1_slave')[0]
+        if sensor_path:
+            device_file = sensor_path
+        else:
+            # Fallback to auto-detect if no path specified
+            device_file = glob.glob('/sys/bus/w1/devices/28*/w1_slave')[0]
+        
         with open(device_file, 'r') as f:
             lines = f.readlines()
         if 'YES' in lines[0]:
             temp_string = lines[1][lines[1].find('t=')+2:]
             return f"{float(temp_string) / 1000.0:.1f}°C"
-    except: return "N/A"
+    except:
+        return "N/A"
 
 def update_cam_info(cam):
     # Sends resolution and name to Prusa Connect
@@ -138,7 +145,9 @@ def process_camera(cam, printer):
         except: 
             font = ImageFont.load_default()
         
-        text = f"Enclosure: {get_real_temp()}"
+        # Get temperature from printer's specific sensor
+        temp_sensor_path = printer.get('temp_sensor_path')
+        text = f"Enclosure: {get_real_temp(temp_sensor_path)}"
         bbox = draw.textbbox((20, 20), text, font=font)
         rect_bg = [bbox[0]-8, bbox[1]-8, bbox[2]+8, bbox[3]+8]
         draw.rectangle(rect_bg, fill=(255, 255, 255))
