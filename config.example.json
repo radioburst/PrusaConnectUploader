@@ -1,25 +1,54 @@
 {
     "interval_seconds": 20,
-    "led_pin": 26,
-    "button_pin": 2,
-    "cameras": [
+    "printers": [
         {
-            "name": "Camera Name",
-            "fingerprint": "Your_Camera_Fingerprint",
-            "token": "your-prusa-connect-token-here",
-            "path": "/dev/v4l/by-id/usb-YOUR_CAMERA_DEVICE",
-            "width": 1280,
-            "height": 720,
-            "overlay_temp": true
+            "name": "Printer 1",
+            "prusa_link_ip": "192.168.1.100",
+            "prusa_link_user": "maker",
+            "prusa_link_password": "your_password_here",
+            "led_control_enabled": true,
+            "led_pin": 26,
+            "button_pin": 2,
+            "cameras": [
+                {
+                    "name": "Camera Name",
+                    "fingerprint": "Your_Camera_Fingerprint",
+                    "token": "your-prusa-connect-token-here",
+                    "path": "/dev/v4l/by-id/usb-YOUR_CAMERA_DEVICE",
+                    "width": 1280,
+                    "height": 720,
+                    "overlay_temp": true
+                },
+                {
+                    "name": "Second Camera",
+                    "fingerprint": "Second_Camera_Fingerprint",
+                    "token": "your-prusa-connect-token-here",
+                    "path": "/dev/v4l/by-id/usb-YOUR_SECOND_CAMERA_DEVICE",
+                    "width": 640,
+                    "height": 480,
+                    "overlay_temp": false
+                }
+            ]
         },
         {
-            "name": "Second Camera",
-            "fingerprint": "Second_Camera_Fingerprint",
-            "token": "your-prusa-connect-token-here",
-            "path": "/dev/v4l/by-id/usb-YOUR_SECOND_CAMERA_DEVICE",
-            "width": 640,
-            "height": 480,
-            "overlay_temp": false
+            "name": "Printer 2",
+            "prusa_link_ip": "192.168.1.101",
+            "prusa_link_user": "maker",
+            "prusa_link_password": "your_password_here",
+            "led_control_enabled": false,
+            "led_pin": null,
+            "button_pin": null,
+            "cameras": [
+                {
+                    "name": "Third Camera",
+                    "fingerprint": "Third_Camera_Fingerprint",
+                    "token": "your-prusa-connect-token-here",
+                    "path": "/dev/v4l/by-id/usb-YOUR_THIRD_CAMERA_DEVICE",
+                    "width": 1920,
+                    "height": 1080,
+                    "overlay_temp": false
+                }
+            ]
         }
     ]
 }
